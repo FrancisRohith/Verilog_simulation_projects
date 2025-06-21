@@ -1,4 +1,4 @@
-## 📜 Sample RISC-V Assembly Code with Machine Code
+# Sample RISC-V Assembly Code with Machine Code for testing
 
 ```assembly
 main:
