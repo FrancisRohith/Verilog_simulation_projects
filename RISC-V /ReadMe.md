@@ -1,6 +1,6 @@
-#SAMPLE RISC-V ASSEMBLY CODE FOR TESTING:
+##SAMPLE RISC-V ASSEMBLY CODE FOR TESTING:
 
-##      RISC-V Assembly |  Description Address   |    Machine Code
+#      RISC-V Assembly |  Description Address   |    Machine Code
         
 main:   addi x2, x0, 5     # x2 = 5                   0  00500113
         addi x3, x0, 12    # x3 = 12                  4  00C00193
