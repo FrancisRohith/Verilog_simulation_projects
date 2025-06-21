@@ -17,7 +17,7 @@ module datapath(
     wire [31:0] src_A, src_B;
     wire [31:0] result;
     
-    flopr #(32) pc_reg(
+    flip_flop #(32) pc_reg(
         .clk(clk),
         .reset(reset),
         .d(PC_next),
