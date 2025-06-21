@@ -14,7 +14,7 @@ module controller(
     wire [1:0] ALU_op;
     wire branch;
     
-    maindec md(
+    main_decoder md(
         .op(op), 
         .result_src(result_src), 
         .mem_write(mem_write), 
@@ -26,7 +26,7 @@ module controller(
         .ALU_op(ALU_op)
         );
     
-    aludec ad(
+    ALU_decoder ad(
         .opb5(op[5]),
         .func3(func3),
         .func7b5(func7b5),
