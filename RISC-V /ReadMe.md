@@ -1,4 +1,5 @@
-# Sample RISC-V Assembly Code with Machine Code for testing
+# RISC-V Single cycle Core
+## Sample RISC-V Assembly Code for Verification
 
 ```assembly
 main:
