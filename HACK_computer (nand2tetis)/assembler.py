@@ -39,6 +39,7 @@ jump_table = {
 def clean_comments(lines):
     instr = []
     for line in lines:
+        line = line.strip()
         if not line or line.startswith("//"):
             continue
         else:
@@ -125,7 +126,7 @@ def firstpass(input_file):
             symbol = line.strip('()')
             var_symbols[symbol] = instr_number
         else: 
-            instr_number += 1
+            instr_number += 1            
             lines.append(line)
     return lines
             
