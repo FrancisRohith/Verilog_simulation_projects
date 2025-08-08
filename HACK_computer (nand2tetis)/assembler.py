@@ -92,31 +92,32 @@ def interpreter(input_file, output_file):
     dest = None
     comp = None
     jump = None
-    asm = ''
         
     with open(input_file, 'r') as file:
         lines = clean_comments(file)
         lines = firstpass(lines)
+        
+    with open(output_file, 'w') as ofile:   
         for instr in lines:
             if instr:
+                asm = ''
                 instr_type = type_of_instr(instr)
                 if(instr_type == 'A'):
                     asm += '0'
                     value = decode_A(instr)
                     value = format(int(value), '015b')
-                    asm += value
-                    asm += '\n'
-                    
+                    asm += value                
+                        
                 elif (instr_type == 'C'):
                     asm += '111'
                     dest, comp, jump = decode_C(instr)
                     asm += comp_table[comp]
                     asm += dest_table.get(dest, "000")
-                    asm += jump_table.get(jump, "000")
-                    asm += '\n' 
+                    asm += jump_table.get(jump, "000")  
                     
-    with open(output_file, 'w') as ofile:
-        ofile.write(asm)         
+                hex_asm =  format(int(asm, 2), "04X")
+                print(hex_asm)             
+                ofile.write(hex_asm + '\n')
             
 def firstpass(input_file):
     instr_number = 0
@@ -140,7 +141,6 @@ def main():
         print("Input file not found.")
         return
     interpreter(input_filename, output_filename)
-    print(var_symbols)
         
 if __name__ == "__main__":
     main()
