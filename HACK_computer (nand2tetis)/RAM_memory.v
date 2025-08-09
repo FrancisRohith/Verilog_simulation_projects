@@ -1,7 +1,7 @@
 module Memory(
     input clk,
     input [15:0] in,
-    input [14:0] address,
+    input [15:0] address,
     input ld,
     output [15:0] out
      );
@@ -13,14 +13,17 @@ module Memory(
     assign ld_sel[1] = ld && (address[14:13] == 2'b10); // 16K - 24K
     assign ld_sel[2] = ld && (address == 15'b111111111111111); 
     
+    wire read_sel0 = (address[14:13] == 2'b00) || (address[14:13] == 2'b01);
+    wire read_sel1 = (address[14:13] == 2'b10);
+    wire read_sel2 = (address == 15'b111111111111111);
+    
     RAM16K data_mem(.clk(clk), .in(in), .address(address[13:0]), .ld(ld_sel[0]), .out(outs[0]));
     SCREEN SCR(.clk(clk), .in(in), .address(address[12:0]), .ld(ld_sel[1]), .out(outs[1]));
     Register KYBD(.clk(clk), .in(in), .ld(ld_sel[2]), .out(outs[2]));
     
-    assign out = ld_sel[0] ? outs[0] : 
-                 ld_sel[1] ? outs[1] : 
-                 ld_sel [2] ? outs[2] : 
-                 15'bz;
+    assign out = read_sel0 ? outs[0] :
+                 read_sel1 ? outs[1] :
+                 read_sel2 ? outs[2] : 16'bz;
     
 endmodule
 
