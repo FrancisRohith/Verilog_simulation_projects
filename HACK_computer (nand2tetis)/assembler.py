@@ -65,7 +65,6 @@ def decode_A(instr):
             return var_symbols[value]
         else:
             var_symbols[value] = base_var_mem
-            print(f'assigned {base_var_mem} to {value}')
             base_var_mem += 1
             return var_symbols[value]
 
@@ -100,24 +99,23 @@ def interpreter(input_file, output_file):
     with open(output_file, 'w') as ofile:   
         for instr in lines:
             if instr:
-                asm = ''
+                hack = ''
                 instr_type = type_of_instr(instr)
                 if(instr_type == 'A'):
-                    asm += '0'
+                    hack += '0'
                     value = decode_A(instr)
                     value = format(int(value), '015b')
-                    asm += value                
+                    hack += value                
                         
                 elif (instr_type == 'C'):
-                    asm += '111'
+                    hack += '111'
                     dest, comp, jump = decode_C(instr)
-                    asm += comp_table[comp]
-                    asm += dest_table.get(dest, "000")
-                    asm += jump_table.get(jump, "000")  
+                    hack += comp_table[comp]
+                    hack += dest_table.get(dest, "000")
+                    hack += jump_table.get(jump, "000")  
                     
-                hex_asm =  format(int(asm, 2), "04X")
-                print(hex_asm)             
-                ofile.write(hex_asm + '\n')
+                hex_hack =  format(int(hack, 2), "04X")         
+                ofile.write(hex_hack + '\n')
             
 def firstpass(input_file):
     instr_number = 0
@@ -133,9 +131,8 @@ def firstpass(input_file):
     return lines
             
 def main():
-    if len(sys.argv) != 4 or sys.argv[2] != "-o":
-        print("Usage: python ASSEMBLER.py input.asm -o output.hack")
-        return
+    if len(sys.argv) != 4 or sys.argv[2] != '-o':
+        print("usage: `python ASSEMBLER.py inputfile.asm -o outputfile")
     input_filename = sys.argv[1]
     output_filename = sys.argv[3]
     if not (os.path.exists(input_filename)):
