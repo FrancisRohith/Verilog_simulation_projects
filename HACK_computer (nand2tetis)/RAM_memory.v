@@ -15,7 +15,7 @@ module Memory(
     
     wire read_sel0 = (address[14:13] == 2'b00) || (address[14:13] == 2'b01);
     wire read_sel1 = (address[14:13] == 2'b10);
-    wire read_sel2 = (address == 15'b111111111111111);
+    wire read_sel2 = (address == 15'b0110000000000000);
     
     RAM16K data_mem(.clk(clk), .in(in), .address(address[13:0]), .ld(ld_sel[0]), .out(outs[0]));
     SCREEN SCR(.clk(clk), .in(in), .address(address[12:0]), .ld(ld_sel[1]), .out(outs[1]));
