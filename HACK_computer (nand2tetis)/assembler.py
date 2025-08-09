@@ -127,8 +127,9 @@ def firstpass(input_file):
             symbol = line.strip('()')
             var_symbols[symbol] = instr_number
         else: 
-            instr_number += 1            
             lines.append(line)
+            instr_number += 1            
+            
     return lines
             
 def main():
